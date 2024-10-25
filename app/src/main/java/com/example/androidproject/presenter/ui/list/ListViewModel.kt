@@ -25,6 +25,9 @@ class ListViewModel(
     private val _animeListItems = MutableLiveData<MutableList<AnimeListItem>>(mutableListOf())
     val animeListItems: LiveData<MutableList<AnimeListItem>> = _animeListItems
 
+    private val _isError = MutableLiveData(false)
+    val isError: LiveData<Boolean> = _isError
+
     private val _error = MutableLiveData("")
     val error: LiveData<String> = _error
 
@@ -43,6 +46,9 @@ class ListViewModel(
                 _animeListItems.value?.add(animeListItemMapper.map(it))
                 _animeListItems.notifyObserver()
             }, {
+                _isError.value = true
+                _isError.notifyObserver()
+
                 _error.value = it.message
                 _error.notifyObserver()
             })

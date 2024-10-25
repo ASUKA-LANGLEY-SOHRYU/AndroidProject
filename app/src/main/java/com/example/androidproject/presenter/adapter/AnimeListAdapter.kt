@@ -63,7 +63,7 @@ class AnimeListAdapter : RecyclerView.Adapter<AnimeListAdapter.AnimeListViewHold
                     .signature(ObjectKey(anime.smallImageUrl.hashCode().toString()))
                     .transform(RoundedCorners(10))
                     .error(R.drawable.ic_launcher_foreground)
-                    .placeholder(R.drawable.ic_launcher_foreground)
+                    .placeholder(R.drawable.progress_bar_default)
                     .into(image)
 
                 open.setOnClickListener {

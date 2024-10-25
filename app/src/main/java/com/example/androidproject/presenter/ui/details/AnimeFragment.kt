@@ -42,7 +42,7 @@ class AnimeFragment : Fragment() {
             Glide.with(requireContext())
                 .load(pictureUrl).transform(RoundedCorners(10))
                 .error(R.drawable.ic_launcher_foreground)
-                .placeholder(R.drawable.ic_launcher_foreground)
+                .placeholder(R.drawable.progress_bar_default)
                 .into(animeImage)
 
         }

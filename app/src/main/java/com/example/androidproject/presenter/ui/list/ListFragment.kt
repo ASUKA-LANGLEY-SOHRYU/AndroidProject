@@ -70,7 +70,7 @@ class ListFragment : Fragment() {
 
     private fun observeLiveData(){
         vm.animeListItems.observe(viewLifecycleOwner, Observer(::onAnimeDownloaded))
-        vm.error.observe(viewLifecycleOwner, Observer(::onError))
+        vm.isError.observe(viewLifecycleOwner, Observer(::onError))
     }
 
 
@@ -84,14 +84,16 @@ class ListFragment : Fragment() {
         }
     }
 
-    private fun onError(value: String) {
+    private fun onError(value: Boolean) {
+        if (!value)
+            return
         binding.apply {
             errorMessage.visibility = View.VISIBLE
             reload.visibility = View.VISIBLE
             progressBar.visibility = View.INVISIBLE
             binding.animeList.visibility = View.INVISIBLE
 
-            errorMessage.text = value
+            errorMessage.text = vm.error.value
         }
     }
 
