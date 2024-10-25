@@ -40,6 +40,40 @@ android {
 
 dependencies {
 
+    // Navigation integration
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui)
+
+    // Koin
+    implementation(libs.koin.android)
+
+    // gson
+    implementation(libs.gson)
+
+    // retrofit
+    implementation(libs.retrofit)
+    implementation(libs.adapter.rxjava2)
+    implementation(libs.converter.gson)
+    implementation(libs.converter.scalars)
+
+    // Okhttp
+    implementation (libs.okhttp3.logging.interceptor)
+    implementation (libs.okhttp)
+    implementation (libs.okhttp3.logging.interceptor)
+
+    // coroutines
+    implementation (libs.kotlinx.coroutines.android)
+    implementation (libs.kotlinx.coroutines.core)
+    implementation (libs.androidx.lifecycle.viewmodel.ktx.v251)
+
+    // rxandroid
+    implementation (libs.rxandroid)
+
+    //glide
+    implementation(libs.glide)
+    annotationProcessor(libs.compiler)
+    implementation(libs.okhttp3.integration)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

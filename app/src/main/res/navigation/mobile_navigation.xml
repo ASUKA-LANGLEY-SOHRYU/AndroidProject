@@ -7,19 +7,29 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.androidproject.ui.home.HomeFragment"
+        android:name="com.example.androidproject.presenter.ui.list.ListFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_navigation_home_to_animeFragment"
+            app:destination="@id/animeFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.androidproject.ui.dashboard.DashboardFragment"
+        android:name="com.example.androidproject.presenter.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.androidproject.ui.notifications.NotificationsFragment"
+        android:name="com.example.androidproject.presenter.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/animeFragment"
+        android:name="com.example.androidproject.presenter.ui.details.AnimeFragment"
+        android:label="Anime"
+        tools:layout="@layout/fragment_anime" />
 </navigation>
