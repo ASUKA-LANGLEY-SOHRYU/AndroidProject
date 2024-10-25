@@ -36,8 +36,8 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAnimeList()
+        initReloadButton()
         observeLiveData()
-        //TODO: Загрузка новых аниме после пролистывания
         //TODO: Поиск
         //TODO: Больше инфы в AnimeFragment
     }
@@ -49,12 +49,28 @@ class ListFragment : Fragment() {
                 onAnimeDetailsClick(position)
             }
         })
+        adapter.setOnScrolledToTheEndListener(object : AnimeListAdapter.OnScrolledToTheEndListener{
+            override fun onScrolledToTheEnd() {
+                this@ListFragment.onScrolledToTheEnd()
+            }
+        })
         binding.animeList.adapter = adapter
         binding.animeList.addItemDecoration(SpaceItemDecorator(40))
     }
 
+    private fun initReloadButton() {
+        binding.reload.setOnClickListener {
+            vm.loadAnimeList()
+        }
+    }
+
+    private fun onScrolledToTheEnd() {
+        vm.loadMore()
+    }
+
     private fun observeLiveData(){
         vm.animeListItems.observe(viewLifecycleOwner, Observer(::onAnimeDownloaded))
+        vm.error.observe(viewLifecycleOwner, Observer(::onError))
     }
 
 
@@ -63,6 +79,19 @@ class ListFragment : Fragment() {
         if (value.isNotEmpty()){
             binding.progressBar.visibility = View.GONE
             binding.animeList.visibility = View.VISIBLE
+            binding.errorMessage.visibility = View.GONE
+            binding.reload.visibility = View.GONE
+        }
+    }
+
+    private fun onError(value: String) {
+        binding.apply {
+            errorMessage.visibility = View.VISIBLE
+            reload.visibility = View.VISIBLE
+            progressBar.visibility = View.INVISIBLE
+            binding.animeList.visibility = View.INVISIBLE
+
+            errorMessage.text = value
         }
     }
 

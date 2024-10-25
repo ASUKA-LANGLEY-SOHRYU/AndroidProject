@@ -11,6 +11,7 @@ val presenterModule = module{
         ListViewModel(
             getAnimeUseCase = get(),
             animeListItemMapper = get(),
+            animeRequestProvider = get(),
         )
     }
     viewModel {
