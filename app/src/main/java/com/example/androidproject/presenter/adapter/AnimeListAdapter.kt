@@ -1,6 +1,7 @@
 package com.example.androidproject.presenter.adapter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ class AnimeListAdapter : RecyclerView.Adapter<AnimeListAdapter.AnimeListViewHold
 
     private var animes: MutableList<AnimeListItem> = mutableListOf()
     private lateinit var onButtonClickListener: OnButtonClickListener
+    private lateinit var onScrolledToTheEndListener: OnScrolledToTheEndListener
 
     @SuppressLint("NotifyDataSetChanged")
     fun addAnime(value: AnimeListItem){
@@ -39,6 +41,14 @@ class AnimeListAdapter : RecyclerView.Adapter<AnimeListAdapter.AnimeListViewHold
         onButtonClickListener = listener
     }
 
+    interface OnScrolledToTheEndListener {
+        fun onScrolledToTheEnd();
+    }
+
+    fun setOnScrolledToTheEndListener(listener: OnScrolledToTheEndListener) {
+        onScrolledToTheEndListener = listener
+    }
+
     inner class AnimeListViewHolder(view: View): RecyclerView.ViewHolder(view){
         private val binding = ListItemBinding.bind(view)
 
@@ -53,7 +63,7 @@ class AnimeListAdapter : RecyclerView.Adapter<AnimeListAdapter.AnimeListViewHold
                     .signature(ObjectKey(anime.smallImageUrl.hashCode().toString()))
                     .transform(RoundedCorners(10))
                     .error(R.drawable.ic_launcher_foreground)
-                    .placeholder(R.drawable.ic_launcher_foreground)
+                    .placeholder(R.drawable.progress_bar_default)
                     .into(image)
 
                 open.setOnClickListener {
@@ -72,5 +82,7 @@ class AnimeListAdapter : RecyclerView.Adapter<AnimeListAdapter.AnimeListViewHold
 
     override fun onBindViewHolder(holder: AnimeListViewHolder, position: Int) {
         holder.bind(animes[position])
+        if (::onScrolledToTheEndListener.isInitialized && position == itemCount - 1)
+            onScrolledToTheEndListener.onScrolledToTheEnd()
     }
 }

@@ -3,16 +3,14 @@ package com.example.androidproject.domain.provider.impl
 import com.example.androidproject.domain.model.AnimeRequest
 import com.example.androidproject.domain.provider.AnimeRequestProvider
 
-class DefaultAnimeRequestProvider : AnimeRequestProvider {
+class ChangingAnimeRequestProvider : AnimeRequestProvider {
+    private var animeRequest = AnimeRequest(1, 20, "")
+
     override fun provideAnimeRequest(): AnimeRequest {
-        return AnimeRequest(
-            page = 1,
-            limit = 20,
-            query = ""
-        )
+        return animeRequest
     }
 
     override fun changeRequest() {
-        return
+        this.animeRequest = AnimeRequest(animeRequest.page + 1, animeRequest.limit, animeRequest.query)
     }
 }
